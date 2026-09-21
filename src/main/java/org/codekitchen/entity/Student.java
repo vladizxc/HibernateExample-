@@ -1,27 +1,34 @@
 package org.codekitchen.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "students")
 public class Student {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
-    @Column(name="age", nullable = false)
+    @Column(name = "age", nullable = false)
     private int age;
 
-    @Column(name="last_name", nullable = false, length = 50)
+    @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
 
-    @Column(name="middle_name", length = 50)
+    @Column(name = "middle_name", length = 50)
     private String middleName;
 
-    public Student(){}
+    public Student() { }
 
     public Student(int age, String lastName, String firstName, String middleName) {
         this.age = age;
