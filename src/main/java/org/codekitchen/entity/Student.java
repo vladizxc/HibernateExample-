@@ -1,6 +1,7 @@
 package org.codekitchen.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "students")
@@ -29,6 +30,14 @@ public class Student {
     @ManyToOne
     @JoinColumn(name="group_id")
     private Group group;
+
+    @ManyToMany
+    @JoinTable(
+            name = "students_sections",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "section_id")
+    )
+    private List<Section> sections;
 
     public Student() { }
 
@@ -100,6 +109,14 @@ public class Student {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public List<Section> getSectionList() {
+        return sections;
+    }
+
+    public void setSectionList(List<Section> sections) {
+        this.sections = sections;
     }
 
     @Override
