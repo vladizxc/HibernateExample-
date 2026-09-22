@@ -1,11 +1,6 @@
 package org.codekitchen.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "students")
@@ -27,6 +22,9 @@ public class Student {
 
     @Column(name = "middle_name", length = 50)
     private String middleName;
+
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
+    private Address address;
 
     public Student() { }
 
@@ -81,6 +79,15 @@ public class Student {
 
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+        address.setStudent(this);
     }
 
     @Override

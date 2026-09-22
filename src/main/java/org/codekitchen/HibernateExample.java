@@ -1,6 +1,7 @@
 package org.codekitchen;
 
 import org.codekitchen.config.HibernateConfig;
+import org.codekitchen.entity.Address;
 import org.codekitchen.entity.Student;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -21,16 +22,14 @@ public class HibernateExample
         EntityManagerFactory entityManagerFactory = context.getBean(EntityManagerFactory.class);
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        try{
+        try {
             entityManager.getTransaction().begin();
 
-            Query query = entityManager.createQuery("SELECT lastName, firstName FROM Student  WHERE age >= 18 AND age <=20");
-            List<Object[]> students = query.getResultList();
-            for (Object[] studentColumns : students){
-                String lastName = (String) studentColumns[0];
-                String firstName = (String) studentColumns[1];
-                System.out.println(lastName + " " + firstName);
-            }
+            Student student = new Student(25, "Test", "Test");
+            Address address = new Address("Test", 5, 5);
+
+            student.setAddress(address);
+            entityManager.persist(student);
 
             entityManager.getTransaction().commit();
         }catch (Exception exception){
@@ -39,6 +38,8 @@ public class HibernateExample
         }finally {
             entityManager.close();
         }
+
+
 
         context.close();
     }
