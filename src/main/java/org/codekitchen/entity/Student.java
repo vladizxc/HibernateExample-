@@ -26,6 +26,10 @@ public class Student {
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
     private Address address;
 
+    @ManyToOne
+    @JoinColumn(name="group_id")
+    private Group group;
+
     public Student() { }
 
     public Student(int age, String lastName, String firstName, String middleName) {
@@ -88,6 +92,14 @@ public class Student {
     public void setAddress(Address address) {
         this.address = address;
         address.setStudent(this);
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     @Override

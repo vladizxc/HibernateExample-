@@ -2,6 +2,8 @@ package org.codekitchen;
 
 import org.codekitchen.config.HibernateConfig;
 import org.codekitchen.entity.Address;
+import org.codekitchen.entity.FacultyType;
+import org.codekitchen.entity.Group;
 import org.codekitchen.entity.Student;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -25,11 +27,10 @@ public class HibernateExample
         try {
             entityManager.getTransaction().begin();
 
-            Student student = new Student(25, "Test", "Test");
-            Address address = new Address("Test", 5, 5);
+            Group group = entityManager.find(Group.class, 3);
 
-            student.setAddress(address);
-            entityManager.persist(student);
+            entityManager.remove(group);
+
 
             entityManager.getTransaction().commit();
         }catch (Exception exception){
